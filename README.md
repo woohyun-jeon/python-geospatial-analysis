@@ -1,2 +1,9 @@
-# geospatial-analysis
-Introduction to geospatial data preprocessing with Python
+# Geospatial analytics using Python
+A collection of example Python scripts for geospatial data processing.
+
+This repository aims to provide raster and vector data handling in Python that can be served as a starting point for geospatial analysis.
+
+## Outline
++ Basic functions for handling raster and vector datasets
++ Download and preprocess MODIS, Sentinel-1/2 satellite images
++ Get KMA, NIFOS observed values with OpenAPI
