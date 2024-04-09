@@ -158,7 +158,7 @@ if __name__ == '__main__':
 
     # get weather forecast information
     kma_grid = gdf_result['Grid'][0]
-    service_key = 'U1Bl19qagt1pBELd3mw%2FkExqUSxl5hmwiJ99Scpz0REN4OCW889DYcrnfGrIFreZKlUYOP7mR2vKfu48RqV4Sw%3D%3D'
+    service_key = '****'
     search_time = '202404081600'
 
     df_obs = get_weather_forecasts(search_time, service_key, kma_grid)

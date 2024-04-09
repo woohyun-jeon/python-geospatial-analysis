@@ -89,7 +89,7 @@ class S1Downloader:
 
 
 if __name__ == '__main__':
-    downloader = S1Downloader(asf_username='Woohyun', asf_password='Jwh134679',
+    downloader = S1Downloader(asf_username='****', asf_password='****',
                               start_date='2023-01-01', end_date='2023-01-30',
                               shp_dir='C:/Users/USER/Downloads/test/aoi/aoi.shp', out_dir='C:/Users/USER/Downloads/test/data',
                               prod_type='SLC')

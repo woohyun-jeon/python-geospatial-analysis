@@ -19,7 +19,6 @@ class S2Downloader:
             'Content-Type': 'application/x-www-form-urlencoded',
         }
 
-        # data = 'username=whjeon@selab.co.kr&password=JJwwhh134679!!!&grant_type=password&client_id=cdse-public'
         data = 'username=' + self.cdes_username + '&password=' + self.cdes_password + '&grant_type=password&client_id=cdse-public'
 
         response = requests.post(
@@ -78,7 +77,7 @@ class S2Downloader:
 
 
 if __name__ == '__main__':
-    downloader = S2Downloader(cdes_username='whjeon@selab.co.kr', cdes_password='JJwwhh134679!!!',
+    downloader = S2Downloader(cdes_username='****', cdes_password='****',
                               start_date='2022-06-01', end_date='2022-06-30',
                               shp_dir='C:/Users/USER/Downloads/test/aoi/aoi.shp',
                               out_dir='C:/Users/USER/Downloads/test/data')

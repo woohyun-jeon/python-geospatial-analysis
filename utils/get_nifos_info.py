@@ -45,7 +45,7 @@ def get_nifos_temp(search_date, service_key, csv_dir):
 if __name__ == '__main__':
     csv_dir = 'C:/Users/USER/Downloads/mtweatherInfo.csv'
     search_date = '202306301809'
-    service_key = 'U1Bl19qagt1pBELd3mw%2FkExqUSxl5hmwiJ99Scpz0REN4OCW889DYcrnfGrIFreZKlUYOP7mR2vKfu48RqV4Sw%3D%3D'
+    service_key = '****'
 
     df_nifos_temp = get_nifos_temp(search_date, service_key, csv_dir)
     print(df_nifos_temp)

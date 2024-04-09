@@ -98,7 +98,7 @@ class modisDownloader:
 
 
 if __name__ == '__main__':
-    downloader = modisDownloader(nasa_username='woohyun', nasa_password='Jwh134679',
+    downloader = modisDownloader(nasa_username='****', nasa_password='****',
                                  start_date='2021-04-01', end_date='2021-04-05', coord=(128.55, 36.55),
                                  out_dir='C:/Users/USER/Downloads')
     modis_paths = downloader.download()
