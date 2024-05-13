@@ -23,10 +23,10 @@ def write_geotiff(in_arr, out_filename, in_proj=None):
 
     # set data channels
     if np.ndim(in_arr) == 2:
-        dst_ds = driver.Create(out_filename, ysize=in_arr.shape[1], xsize=in_arr.shape[0], bands=1, eType=gdal_type)
+        dst_ds = driver.Create(out_filename, ysize=in_arr.shape[0], xsize=in_arr.shape[1], bands=1, eType=gdal_type)
         dst_ds.GetRasterBand(1).WriteArray(in_arr)
     elif np.ndim(in_arr) == 3:
-        dst_ds = driver.Create(out_filename, ysize=in_arr.shape[1], xsize=in_arr.shape[0], bands=in_arr.shape[2], eType=gdal_type)
+        dst_ds = driver.Create(out_filename, ysize=in_arr.shape[0], xsize=in_arr.shape[1], bands=in_arr.shape[2], eType=gdal_type)
         for idx in range(1, in_arr.shape[2] + 1):
             dst_ds.GetRasterBand(idx).WriteArray(in_arr[:,:, idx - 1])
     else:
