@@ -16,7 +16,9 @@ def write_geotiff(in_arr, out_filename, in_proj=None):
     driver = gdal.GetDriverByName('GTiff')
 
     # set data type
-    if in_arr.dtype == np.float32:
+    if in_arr.type == np.uint8:
+        gdal_type = gdal.GDT_Byte
+    elif in_arr.dtype == np.float32:
         gdal_type = gdal.GDT_Float32
     elif in_arr.dtype == np.uint16:
         gdal_type = gdal.GDT_UInt16
