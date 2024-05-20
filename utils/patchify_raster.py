@@ -1,6 +1,4 @@
 import os
-import glob
-import numpy as np
 from tifffile import tifffile
 
 
@@ -26,7 +24,7 @@ def patchify(img_file, out_dir, msk_file=None, msk_proportion=0.05, crop_size=25
 
                 if msk_file is not None:
                     msk_crop = msk[col_i:col_i + crop_size, row_i:row_i + crop_size]
-                    if msk_crp.sum() >= int(crop_size * crop_size * msk_proportion):
+                    if msk_crop.sum() >= int(crop_size * crop_size * msk_proportion):
                         tifffile.imsave(os.path.join(out_dir, 'img_' + str(idx).zfill(4) + '.tif'), img_crop)
                         tifffile.imsave(os.path.join(out_dir, 'msk_' + str(idx).zfill(4) + '.tif'), msk_crop)
                 else:
