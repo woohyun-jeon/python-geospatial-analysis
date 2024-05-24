@@ -6,7 +6,6 @@ import warnings
 from rasterio.errors import NotGeoreferencedWarning
 warnings.filterwarnings("ignore", category=NotGeoreferencedWarning)
 
-
 def patchify(img_file, out_dir, msk_file=None, msk_proportion=0.05, crop_size=256, stride_size=128, keep_crs=True):
     with rasterio.open(img_file) as src:
         img = src.read()
@@ -25,27 +24,19 @@ def patchify(img_file, out_dir, msk_file=None, msk_proportion=0.05, crop_size=25
         print('Insufficient size -- ', img_file, 'Size should be larger than ', crop_size)
         return
 
-    os.makedirs(out_dir, exist_ok=True)
-
     idx = 0
-    for col_i in range(0, width, stride_size):
-        for row_i in range(0, height, stride_size):
-            if col_i + crop_size > width or row_i + crop_size > height:
-                continue
-
+    for col_i in range(0, height - crop_size + 1, stride_size):
+        for row_i in range(0, width - crop_size + 1, stride_size):
             img_crop = img[:, col_i:col_i + crop_size, row_i:row_i + crop_size]
 
             if msk_file is not None:
                 msk_crop = msk[col_i:col_i + crop_size, row_i:row_i + crop_size]
                 if msk_crop.sum() >= int(crop_size * crop_size * msk_proportion):
-                    save_patch(img_crop, msk_crop, img_meta, original_transform, out_dir, idx, keep_crs, col_i, row_i,
-                               crop_size)
+                    save_patch(img_crop, msk_crop, img_meta, original_transform, out_dir, idx, keep_crs, col_i, row_i, crop_size)
             else:
-                save_patch(img_crop, None, img_meta, original_transform, out_dir, idx, keep_crs, col_i, row_i,
-                           crop_size)
+                save_patch(img_crop, None, img_meta, original_transform, out_dir, idx, keep_crs, col_i, row_i, crop_size)
 
             idx += 1
-
 
 def save_patch(img_crop, msk_crop, img_meta, original_transform, out_dir, idx, keep_crs, col_i, row_i, crop_size):
     if keep_crs:
@@ -74,13 +65,13 @@ def save_patch(img_crop, msk_crop, img_meta, original_transform, out_dir, idx, k
         with rasterio.open(msk_file_name, 'w', **msk_meta) as dest:
             dest.write(msk_crop, 1)
 
-
 if __name__ == '__main__':
     imgfiles = glob.glob("D:/oil/origin/S1*/site*_norm.tif")
-    img_file = imgfiles[0]
-    msk_file = img_file.replace('_data_norm', '_oil')
-    out_dir = 'C:/Users/USER/Downloads/patches'
-    os.makedirs(out_dir, exist_ok=True)
-    keep_crs = True
+    out_dir = "D:/oil/patch"
+    for imgfile in imgfiles:
+        mskfile = imgfile.replace('_data_norm', '_oil')
+        out_dir_updated = os.path.join(out_dir, os.path.basename(os.path.dirname(imgfile)))
+        # os.makedirs(out_dir_updated, exist_ok=True)
+        keep_crs = True
 
-    patchify(img_file=img_file, out_dir=out_dir, msk_file=msk_file, keep_crs=False)
+        patchify(img_file=imgfile, out_dir=out_dir, msk_file=mskfile, msk_proportion=0, keep_crs=keep_crs)
