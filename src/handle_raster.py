@@ -2,6 +2,30 @@ import os
 import glob
 import numpy as np
 from osgeo import gdal
+import rasterio
+import warnings
+from rasterio.errors import NotGeoreferencedWarning
+warnings.filterwarnings('ignore', category=NotGeoreferencedWarning)
+
+
+def get_norm_parameters(in_files):
+    ds_means = []
+    ds_stds = []
+    # size of in_file should be (C, H, W)
+    for in_file in in_files:
+        in_src = rasterio.open(in_file)
+        in_arr = in_src.read()
+        ds_means.append(np.mean(in_arr, axis=(1, 2)))
+        ds_stds.append(np.std(in_arr, axis=(1, 2)))
+
+    ds_features = len(ds_means[0])
+    norm_mean = []
+    norm_std = []
+    for idx in range(len(ds_means[0])):
+        norm_mean.append(np.mean([ds_mean[idx] for ds_mean in ds_means]))
+        norm_std.append(np.mean([ds_std[idx] for ds_std in ds_stds]))
+
+    return norm_mean, norm_std
 
 
 def read_geotiff(in_file):
