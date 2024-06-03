@@ -6,7 +6,10 @@ from osgeo import gdal
 
 def read_geotiff(in_file):
     in_ds = gdal.Open(in_file)
-    in_arr = in_ds.ReadAsArray().transpose(1,2,0)
+    # if in_file has one channel --> (H, W) / more than one channel --> (H, W, C)
+    in_arr = in_ds.ReadAsArray()
+    if np.ndim(in_arr) == 3:
+        in_arr = in_arr.transpose(1, 2, 0)
     in_proj = {'SpatialRef': in_ds.GetProjectionRef(), 'GeoTransform': in_ds.GetGeoTransform()}
 
     return in_arr, in_proj
