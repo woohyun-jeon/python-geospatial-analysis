@@ -1,4 +1,4 @@
-# Geospatial analytics using Python
+# Geospatial analytics with Python
 A collection of example Python scripts for geospatial data processing.
 
 This repository aims to provide raster and vector data handling in Python that can be served as a starting point for geospatial analysis.
